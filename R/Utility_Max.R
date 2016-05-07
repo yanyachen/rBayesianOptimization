@@ -25,7 +25,7 @@ Utility_Max <- function(DT_bounds, GP, acq = "ucb", y_max, kappa, eps) {
   # Negative Utility Function Minimization
   Mat_optim <- foreach::foreach(i = 1:nrow(Mat_tries), .combine = "rbind") %dopar% {
     optim_result <- optim(par = Mat_tries[i,],
-                          fn = UtilityFunction,
+                          fn = Utility,
                           GP = GP, acq = acq, y_max = y_max, kappa = kappa, eps = eps,
                           method = "L-BFGS-B",
                           lower = rep(0, length(DT_bounds[, Lower])),

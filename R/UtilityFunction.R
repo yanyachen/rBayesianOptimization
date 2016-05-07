@@ -15,7 +15,7 @@
 #' @keywords internal
 #' @export
 
-UtilityFunction <- function(x_vec, GP, acq = "ucb", y_max, kappa, eps) {
+Utility <- function(x_vec, GP, acq = "ucb", y_max, kappa, eps) {
   # Gaussian Process Prediction
   GP_Pred <- GPfit::predict.GP(object = GP, xnew = matrix(x_vec, nrow = 1))
   GP_Mean <- GP_Pred$Y_hat
