@@ -54,9 +54,12 @@ utils::globalVariables(".")
 #' @param lower lower bounds
 #' @param upper upper bounds
 #' @return a vector of original hyperparameters
+#' @importFrom magrittr %>%
 #' @keywords internal
 #' @export
 
 Min_Max_Inverse_Scale_Vec <- function(vec, lower, upper) {
-  vec * (upper - lower) + lower
+  (vec * (upper - lower) + lower) %>%
+    pmin(., upper - .Machine$double.eps) %>%
+    pmax(., lower + .Machine$double.eps)
 }

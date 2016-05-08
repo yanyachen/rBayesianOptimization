@@ -22,7 +22,6 @@
 #'   increasing kappa will make the optimized hyperparameters pursuing exploration.
 #' @param eps tunable parameter theta to balance exploitation against exploration,
 #'   increasing epsilon will make the optimized hyperparameters are more spread out across the whole range.
-#' @param n.core number of cores to be used in utility maxmization, if not set, all cores are used.
 #' @param verbose Whether or not to print progress.
 #' @param ... Other arguments passed on to \code{\link{GP_fit}}.
 #' @return a list of Bayesian Optimization result is returned:
@@ -34,7 +33,20 @@
 #' }
 #' @references Jasper Snoek, Hugo Larochelle, Ryan P. Adams (2012) \emph{Practical Bayesian Optimization of Machine Learning Algorithms}
 #' @examples
+#' # Example 1: Optimization
+#' ## Set Pred = 0, as placeholder
+#' Test_Fun <- function(x) {
+#'   list(Score = exp(-(x - 2)^2) + exp(-(x - 6)^2/10) + 1/ (x^2 + 1),
+#'        Pred = 0)
+#' }
+#' ## Set larger init_points and n_iter for better optimization result
+#' OPT_Res <- BayesianOptimization(Test_Fun,
+#'                                 bounds = list(x = c(1, 3)),
+#'                                 init_points = 2, n_iter = 1,
+#'                                 acq = "ucb", kappa = 2.576, eps = 0.0,
+#'                                 verbose = TRUE)
 #' \dontrun{
+#' # Example 2: Parameter Tuning
 #' library(xgboost)
 #' data(agaricus.train, package = "xgboost")
 #' dtrain <- xgb.DMatrix(agaricus.train$data,
@@ -57,23 +69,16 @@
 #' }
 #' OPT_Res <- BayesianOptimization(xgb_cv_bayes,
 #'                                 bounds = list(max.depth = c(2L, 6L),
-#'                                               min_child_weight = c(1L, 20L),
+#'                                               min_child_weight = c(1L, 10L),
 #'                                               subsample = c(0.5, 0.8)),
 #'                                 init_points = 10, n_iter = 20,
 #'                                 acq = "ucb", kappa = 2.576, eps = 0.0,
-#'                                 n.core = NULL, verbose = TRUE)
+#'                                 verbose = TRUE)
 #' }
 #' @importFrom magrittr %>%
 #' @export
 
-BayesianOptimization <- function(FUN, bounds, init_points, n_iter, acq = "ucb", kappa = 2.576, eps = 0.0, n.core = NULL, verbose = TRUE, ...) {
-  # Parallel Backend
-  default_cores <- options()$cores
-  doParallel::registerDoParallel()
-  options(cores = ifelse(is.null(n.core) == FALSE,
-                         n.core,
-                         parallel::detectCores(logical = FALSE)))
-  on.exit(expr = options(cores = default_cores))
+BayesianOptimization <- function(FUN, bounds, init_points, n_iter, acq = "ucb", kappa = 2.576, eps = 0.0, verbose = TRUE, ...) {
   # Preparation
   DT_bounds <- data.table(Parameter = names(bounds),
                           Lower = sapply(bounds, magrittr::extract2, 1),

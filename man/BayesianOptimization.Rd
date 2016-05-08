@@ -5,7 +5,7 @@
 \title{Bayesian Optimization}
 \usage{
 BayesianOptimization(FUN, bounds, init_points, n_iter, acq = "ucb",
-  kappa = 2.576, eps = 0, n.core = NULL, verbose = TRUE, ...)
+  kappa = 2.576, eps = 0, verbose = TRUE, ...)
 }
 \arguments{
 \item{FUN}{The function to be maximized. This Function should return a named list with 2 components.
@@ -34,8 +34,6 @@ increasing kappa will make the optimized hyperparameters pursuing exploration.}
 \item{eps}{tunable parameter theta to balance exploitation against exploration,
 increasing epsilon will make the optimized hyperparameters are more spread out across the whole range.}
 
-\item{n.core}{number of cores to be used in utility maxmization, if not set, all cores are used.}
-
 \item{verbose}{Whether or not to print progress.}
 
 \item{...}{Other arguments passed on to \code{\link{GP_fit}}.}
@@ -53,7 +51,20 @@ a list of Bayesian Optimization result is returned:
 Bayesian Optimization of Hyperparameters.
 }
 \examples{
+# Example 1: Optimization
+## Set Pred = 0, as placeholder
+Test_Fun <- function(x) {
+  list(Score = exp(-(x - 2)^2) + exp(-(x - 6)^2/10) + 1/ (x^2 + 1),
+       Pred = 0)
+}
+## Set larger init_points and n_iter for better optimization result
+OPT_Res <- BayesianOptimization(Test_Fun,
+                                bounds = list(x = c(1, 3)),
+                                init_points = 2, n_iter = 1,
+                                acq = "ucb", kappa = 2.576, eps = 0.0,
+                                verbose = TRUE)
 \dontrun{
+# Example 2: Parameter Tuning
 library(xgboost)
 data(agaricus.train, package = "xgboost")
 dtrain <- xgb.DMatrix(agaricus.train$data,
@@ -76,11 +87,11 @@ xgb_cv_bayes <- function(max.depth, min_child_weight, subsample) {
 }
 OPT_Res <- BayesianOptimization(xgb_cv_bayes,
                                 bounds = list(max.depth = c(2L, 6L),
-                                              min_child_weight = c(1L, 20L),
+                                              min_child_weight = c(1L, 10L),
                                               subsample = c(0.5, 0.8)),
                                 init_points = 10, n_iter = 20,
                                 acq = "ucb", kappa = 2.576, eps = 0.0,
-                                n.core = NULL, verbose = TRUE)
+                                verbose = TRUE)
 }
 }
 \references{
