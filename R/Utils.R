@@ -8,13 +8,13 @@
 #' @param upper upper bounds
 #' @return a matrix of original hyperparameters
 #' @importFrom stats runif
-#' @importFrom foreach %do%
+#' @importFrom foreach foreach %do%
 #' @importFrom magrittr %>%
 #' @keywords internal
 #' @export
 
 Matrix_runif <- function(n, lower, upper) {
-  foreach::foreach(i = seq_along(lower), .combine = "cbind") %do% {
+  foreach(i = seq_along(lower), .combine = "cbind") %do% {
     runif(n, min = lower[i], max = upper[i]) %>%
       pmin(., upper[i] - sqrt(.Machine$double.eps)) %>%
       pmax(., lower[i] + sqrt(.Machine$double.eps))

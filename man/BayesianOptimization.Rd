@@ -4,8 +4,8 @@
 \alias{BayesianOptimization}
 \title{Bayesian Optimization}
 \usage{
-BayesianOptimization(FUN, bounds, init_points, n_iter, acq = "ucb",
-  kappa = 2.576, eps = 0, verbose = TRUE, ...)
+BayesianOptimization(FUN, bounds, init_grid_dt = NULL, init_points = 0,
+  n_iter, acq = "ucb", kappa = 2.576, eps = 0, verbose = TRUE, ...)
 }
 \arguments{
 \item{FUN}{The function to be maximized. This Function should return a named list with 2 components.
@@ -14,7 +14,12 @@ the validation/cross-validation prediction for ensembling/stacking.}
 
 \item{bounds}{A named list of lower and upper bounds for each hyperparameter.
 The names of the list should be identical to the arguments of FUN.
+All the sample points in init_grid_dt should be in the range of bounds.
 Please use "L" suffix to indicate integer hyperparameter.}
+
+\item{init_grid_dt}{User specified points to sample the target function, should
+be a \code{data.frame} or \code{data.table} with identical column names as bounds.
+User can add one "Value" column at the end, if target function is pre-sampled.}
 
 \item{init_points}{Number of randomly chosen points to sample the
 target function before Bayesian Optimization fitting the Gaussian Process.}
