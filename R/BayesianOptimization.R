@@ -153,7 +153,7 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
     }
   }
   # Optimization
-  for (j in (nrow(DT_history) - nrow(iter_points_dt) + 1):nrow(DT_history)) {
+  for (j in (nrow(init_grid_dt) + nrow(init_points_dt) + 1):nrow(DT_history)) {
     # Fitting Gaussian Process
     Par_Mat <- Min_Max_Scale_Mat(as.matrix(DT_history[1:(j - 1), DT_bounds[, Parameter], with = FALSE]),
                                  lower = DT_bounds[, Lower],
@@ -168,8 +168,8 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
       magrittr::set_names(., DT_bounds[, Parameter]) %>%
       inset(., DT_bounds[Type == "integer", Parameter], round(extract(., DT_bounds[Type == "integer", Parameter])))
     # Function Evaluation
-    This_Log <- utils::capture.output({
-      This_Time <- system.time({
+    Next_Log <- utils::capture.output({
+      Next_Time <- system.time({
         Next_Score_Pred <- do.call(what = FUN, args = as.list(Next_Par))
       })
     })
@@ -182,7 +182,7 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
     # Printing History
     if (verbose == TRUE) {
       paste(c("elapsed", names(DT_history)),
-            c(format(This_Time["elapsed"], trim = FALSE, digits = 0, nsmall = 2),
+            c(format(Next_Time["elapsed"], trim = FALSE, digits = 0, nsmall = 2),
               format(DT_history[j, "Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 0),
               format(DT_history[j, -"Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 4)), sep = " = ", collapse = "\t") %>%
         cat(., "\n")
