@@ -75,7 +75,7 @@
 #'                                 bounds = list(max.depth = c(2L, 6L),
 #'                                               min_child_weight = c(1L, 10L),
 #'                                               subsample = c(0.5, 0.8)),
-#'                                 init_points = 10, n_iter = 20,
+#'                                 init_grid_dt = NULL, init_points = 10, n_iter = 20,
 #'                                 acq = "ucb", kappa = 2.576, eps = 0.0,
 #'                                 verbose = TRUE)
 #' }
