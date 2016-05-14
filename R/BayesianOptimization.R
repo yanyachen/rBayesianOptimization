@@ -96,7 +96,7 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
     if (identical(names(init_grid_dt), DT_bounds[, Parameter]) == TRUE) {
       init_grid_dt[, Value := -Inf]
     } else if (identical(names(init_grid_dt), c(DT_bounds[, Parameter], "Value")) == TRUE) {
-      paste(nrow(init_grid_dt), "points in hyperparameter space was pre-sampled", sep = " ") %>%
+      paste(nrow(init_grid_dt), "points in hyperparameter space were pre-sampled\n", sep = " ") %>%
         cat(.)
     } else {
       stop("bounds and init_grid_dt should be compatible")
@@ -154,14 +154,19 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
   }
   # Optimization
   for (j in (nrow(init_grid_dt) + nrow(init_points_dt) + 1):nrow(DT_history)) {
+    if (nrow(iter_points_dt) == 0) {
+      next
+    }
     # Fitting Gaussian Process
     Par_Mat <- Min_Max_Scale_Mat(as.matrix(DT_history[1:(j - 1), DT_bounds[, Parameter], with = FALSE]),
                                  lower = DT_bounds[, Lower],
                                  upper = DT_bounds[, Upper])
     Rounds_Unique <- setdiff(1:(j - 1), which(duplicated(Par_Mat) == TRUE))
     Value_Vec <- DT_history[1:(j - 1), Value]
-    GP <- GPfit::GP_fit(X = Par_Mat[Rounds_Unique, ],
-                        Y = Value_Vec[Rounds_Unique], ...)
+    GP_Log <- utils::capture.output({
+      GP <- GPfit::GP_fit(X = Par_Mat[Rounds_Unique, ],
+                          Y = Value_Vec[Rounds_Unique], ...)
+    })
     # Minimizing Negative Utility Function
     Next_Par <- Utility_Max(DT_bounds, GP, acq = acq, y_max = max(DT_history[, Value]), kappa = kappa, eps = eps) %>%
       Min_Max_Inverse_Scale_Vec(., lower = DT_bounds[, Lower], upper = DT_bounds[, Upper]) %>%

@@ -12,7 +12,7 @@
 #' @return The arg max of the acquisition function
 #' @importFrom stats optim
 #' @importFrom data.table data.table setnames
-#' @importFrom foreach %do%
+#' @importFrom foreach foreach %do%
 #' @importFrom magrittr %>%
 #' @keywords internal
 #' @export
@@ -23,7 +23,7 @@ Utility_Max <- function(DT_bounds, GP, acq = "ucb", y_max, kappa, eps) {
                             lower = rep(0, length(DT_bounds[, Lower])),
                             upper = rep(1, length(DT_bounds[, Upper])))
   # Negative Utility Function Minimization
-  Mat_optim <- foreach::foreach(i = 1:nrow(Mat_tries), .combine = "rbind") %do% {
+  Mat_optim <- foreach(i = 1:nrow(Mat_tries), .combine = "rbind") %do% {
     optim_result <- optim(par = Mat_tries[i,],
                           fn = Utility,
                           GP = GP, acq = acq, y_max = y_max, kappa = kappa, eps = eps,

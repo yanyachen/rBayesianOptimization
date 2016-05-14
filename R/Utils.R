@@ -19,7 +19,7 @@ Matrix_runif <- function(n, lower, upper) {
       pmin(., upper[i] - sqrt(.Machine$double.eps)) %>%
       pmax(., lower[i] + sqrt(.Machine$double.eps))
   } %>%
-    matrix(., nrow = n)
+    matrix(., nrow = n, ncol = length(lower))
 }
 utils::globalVariables(c("i", "."))
 
