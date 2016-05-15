@@ -196,7 +196,7 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
   # Computing Result
   Best_Par <- as.numeric(DT_history[which.max(Value), DT_bounds[, Parameter], with = FALSE]) %>%
     magrittr::set_names(., DT_bounds[, Parameter])
-  Best_Value <- max(DT_history[, Value])
+  Best_Value <- max(DT_history[, Value], na.rm = TRUE)
   Pred_DT <- data.table::as.data.table(Pred_list)
   Result <- list(Best_Par = Best_Par,
                  Best_Value = Best_Value,
