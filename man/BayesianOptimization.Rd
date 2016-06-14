@@ -36,7 +36,7 @@ target function before Bayesian Optimization fitting the Gaussian Process.}
 \item{kappa}{tunable parameter kappa to balance exploitation against exploration,
 increasing kappa will make the optimized hyperparameters pursuing exploration.}
 
-\item{eps}{tunable parameter theta to balance exploitation against exploration,
+\item{eps}{tunable parameter epsilon to balance exploitation against exploration,
 increasing epsilon will make the optimized hyperparameters are more spread out across the whole range.}
 
 \item{verbose}{Whether or not to print progress.}
