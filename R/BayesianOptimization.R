@@ -22,10 +22,12 @@
 #'   \item \code{ei} Expected Improvement
 #'   \item \code{poi} Probability of Improvement
 #' }
-#' @param kappa tunable parameter kappa to balance exploitation against exploration,
+#' @param kappa tunable parameter kappa of GP Upper Confidence Bound, to balance exploitation against exploration,
 #'   increasing kappa will make the optimized hyperparameters pursuing exploration.
-#' @param eps tunable parameter epsilon to balance exploitation against exploration,
+#' @param eps tunable parameter epsilon of Expected Improvement and Probability of Improvement, to balance exploitation against exploration,
 #'   increasing epsilon will make the optimized hyperparameters are more spread out across the whole range.
+#' @param kernel Kernel (aka correlation function) for the underlying Gaussian Process. This parameter should be a list
+#'   that specifies the type of correlation function along with the smoothness parameter. Popular choices are square exponential (default) or matern 5/2
 #' @param verbose Whether or not to print progress.
 #' @param ... Other arguments passed on to \code{\link{GP_fit}}.
 #' @return a list of Bayesian Optimization result is returned:
@@ -83,7 +85,7 @@
 #' @importFrom data.table data.table setnames set setDT :=
 #' @export
 
-BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points = 0, n_iter, acq = "ucb", kappa = 2.576, eps = 0.0, verbose = TRUE, ...) {
+BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points = 0, n_iter, acq = "ucb", kappa = 2.576, eps = 0.0, kernel = list(type = "exponential", power = 2), verbose = TRUE, ...) {
   # Preparation
   ## DT_bounds
   DT_bounds <- data.table(Parameter = names(bounds),
@@ -165,7 +167,8 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
     Value_Vec <- DT_history[1:(j - 1), Value]
     GP_Log <- utils::capture.output({
       GP <- GPfit::GP_fit(X = Par_Mat[Rounds_Unique, ],
-                          Y = Value_Vec[Rounds_Unique], ...)
+                          Y = Value_Vec[Rounds_Unique],
+                          corr = kernel, ...)
     })
     # Minimizing Negative Utility Function
     Next_Par <- Utility_Max(DT_bounds, GP, acq = acq, y_max = max(DT_history[, Value]), kappa = kappa, eps = eps) %>%
