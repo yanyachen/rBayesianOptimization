@@ -29,7 +29,9 @@ Utility_Max <- function(DT_bounds, GP, acq = "ucb", y_max, kappa, eps) {
                           GP = GP, acq = acq, y_max = y_max, kappa = kappa, eps = eps,
                           method = "L-BFGS-B",
                           lower = rep(0, length(DT_bounds[, Lower])),
-                          upper = rep(1, length(DT_bounds[, Upper])))
+                          upper = rep(1, length(DT_bounds[, Upper])),
+                          control = list(maxit = 100,
+                                         factr = 5e11))
     c(optim_result$par, optim_result$value)
   } %>%
     data.table(.) %>%
