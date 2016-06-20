@@ -24,7 +24,7 @@
 #' }
 #' @param kappa tunable parameter kappa to balance exploitation against exploration,
 #'   increasing kappa will make the optimized hyperparameters pursuing exploration.
-#' @param eps tunable parameter theta to balance exploitation against exploration,
+#' @param eps tunable parameter epsilon to balance exploitation against exploration,
 #'   increasing epsilon will make the optimized hyperparameters are more spread out across the whole range.
 #' @param verbose Whether or not to print progress.
 #' @param ... Other arguments passed on to \code{\link{GP_fit}}.
