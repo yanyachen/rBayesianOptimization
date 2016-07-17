@@ -38,6 +38,7 @@ KFold <- function(target, nfolds = 10, stratified = FALSE, seed = 0) {
     for(i in seq_along(names(target_table))) target_list[[i]] <- which(as.character(target) == names(target_table)[i])
     index_list_of_each_target <- lapply(target_list, nfold_index, nfolds = nfolds, seed = seed)
     index_nfold_list <- Reduce(list_c, index_list_of_each_target)
+    for (i in seq_along(index_nfold_list)) index_nfold_list[[i]] <- sort(index_nfold_list[[i]])
   }
   return(index_nfold_list)
 }
