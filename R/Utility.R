@@ -25,7 +25,7 @@ Utility <- function(x_vec, GP, acq = "ucb", y_max, kappa, eps) {
     Utility <- GP_Mean + kappa * sqrt(GP_MSE)
   } else if (acq == "ei") {
     z <- (GP_Mean - y_max - eps) / sqrt(GP_MSE)
-    Utility <- (GP_Mean - y_max - eps) * pnorm(z) + sqrt(GP_MSE) * pnorm(z)
+    Utility <- (GP_Mean - y_max - eps) * pnorm(z) + sqrt(GP_MSE) * dnorm(z)
   } else if (acq == "poi") {
     z <- (GP_Mean - y_max - eps) / sqrt(GP_MSE)
     Utility <- pnorm(z)
