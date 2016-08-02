@@ -6,17 +6,12 @@ Authors@R: person("Yachen", "Yan", email = "yanyachen21@gmail.com", role = c("au
 Description: An Pure R implementation of Bayesian Global Optimization with Gaussian Processes.
 URL: http://github.com/yanyachen/rBayesianOptimization
 BugReports: http://github.com/yanyachen/rBayesianOptimization/issues
-Depends:
-    R (>= 2.10)
-Imports:
-    stats,
-    utils,
-    data.table,
-    magrittr,
-    foreach,
-    GPfit
-Suggests:
-    xgboost
+Depends: R (>= 2.10)
+Imports: stats, utils, data.table (>= 1.9.6), magrittr, foreach, GPfit
+Suggests: xgboost
 License: MIT + file LICENSE
 LazyData: TRUE
 RoxygenNote: 5.0.1
+NeedsCompilation: no
+Author: Yachen Yan [aut, cre]
+Maintainer: Yachen Yan <yanyachen21@gmail.com>
