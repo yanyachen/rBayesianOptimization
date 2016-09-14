@@ -7,7 +7,7 @@ Windows: [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/g
 
 Bayesian Optimization of Hyperparameters  
 
-An Pure R implementation of Bayesian Global Optimization with Gaussian Processes.  
+A Pure R implementation of Bayesian Global Optimization with Gaussian Processes.  
 
 To install:  
 * the stable version from [CRAN](http://cran.r-project.org/web/packages/rBayesianOptimization/index.html):  

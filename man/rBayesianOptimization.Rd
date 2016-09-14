@@ -6,6 +6,6 @@
 \alias{rBayesianOptimization-package}
 \title{rBayesianOptimization: Bayesian Optimization of Hyperparameters}
 \description{
-An Pure R implementation of bayesian global optimization with gaussian processes.
+A Pure R implementation of bayesian global optimization with gaussian processes.
 }
 

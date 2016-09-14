@@ -3,7 +3,7 @@ Type: Package
 Title: Bayesian Optimization of Hyperparameters
 Version: 1.1.0
 Authors@R: person("Yachen", "Yan", email = "yanyachen21@gmail.com", role = c("aut", "cre"))
-Description: An Pure R implementation of Bayesian Global Optimization with Gaussian Processes.
+Description: A Pure R implementation of Bayesian Global Optimization with Gaussian Processes.
 URL: http://github.com/yanyachen/rBayesianOptimization
 BugReports: http://github.com/yanyachen/rBayesianOptimization/issues
 Depends: R (>= 2.10)
@@ -13,6 +13,6 @@ License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-09-13 04:54:16 UTC; Administrator
+Packaged: 2016-09-14 17:53:34 UTC; Administrator
 Author: Yachen Yan [aut, cre]
 Maintainer: Yachen Yan <yanyachen21@gmail.com>
