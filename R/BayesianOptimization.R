@@ -16,6 +16,7 @@
 #' @param init_points Number of randomly chosen points to sample the
 #'   target function before Bayesian Optimization fitting the Gaussian Process.
 #' @param n_iter Total number of times the Bayesian Optimization is to repeated.
+#' @param stop_iter Number of iterations the Bayesian Optimization stops after last improvement.
 #' @param acq Acquisition function type to be used. Can be "ucb", "ei" or "poi".
 #' \itemize{
 #'   \item \code{ucb} GP Upper Confidence Bound
@@ -85,7 +86,7 @@
 #' @importFrom data.table data.table setnames set setDT :=
 #' @export
 
-BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points = 0, n_iter, acq = "ucb", kappa = 2.576, eps = 0.0, kernel = list(type = "exponential", power = 2), verbose = TRUE, ...) {
+BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points = 0, n_iter, stop_iter = NULL, acq = "ucb", kappa = 2.576, eps = 0.0, kernel = list(type = "exponential", power = 2), verbose = TRUE, ...) {
   # Preparation
   ## DT_bounds
   DT_bounds <- data.table(Parameter = names(bounds),
@@ -154,6 +155,11 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
         cat(., "\n")
     }
   }
+  
+  # Initialize the best performance and last improvement counter
+  last_imprv <- 0
+  y_max_curr <- max(DT_history[, Value])
+  
   # Optimization
   for (j in (nrow(init_grid_dt) + nrow(init_points_dt) + 1):nrow(DT_history)) {
     if (nrow(iter_points_dt) == 0) {
@@ -194,6 +200,17 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
               format(DT_history[j, "Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 0),
               format(DT_history[j, -"Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 4)), sep = " = ", collapse = "\t") %>%
         cat(., "\n")
+    }
+    
+    # Check if there are any impovement in previous runs
+    if (!is.null(stop_iter)){
+      if (max(DT_history[, Value] > y_max_curr)) {
+        y_max_curr <- max(DT_history[, Value])
+        last_imprv <- 0
+      } else {
+        last_imprv = last_imprv + 1
+       }
+      if (last_imprv >= stop_iter) break
     }
   }
   # Computing Result
