@@ -126,7 +126,7 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
   ## Pred_list
   Pred_list <- vector(mode = "list", length = nrow(DT_history))
   # Initialization
-  infinite_rows = DT_history[seq_len(nrow(init_grid_dt) + nrow(init_points))
+  infinite_rows = DT_history[seq_len(nrow(init_grid_dt) + nrow(init_points_dt))
                              ][is.infinite(Value), which = TRUE]
   for (i in infinite_rows) {
     This_Par <- DT_history[i, DT_bounds[, Parameter], with = FALSE]
