@@ -26,4 +26,3 @@ negative utility to be minimized
 Computing Utility.
 }
 \keyword{internal}
-

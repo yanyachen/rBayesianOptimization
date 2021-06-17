@@ -20,4 +20,3 @@ a matrix of original hyperparameters
 Generates random deviates for multiple hyperparameters in matrix format.
 }
 \keyword{internal}
-

@@ -20,4 +20,3 @@ a matrix of scaled hyperparameters
 Transforms hyperparameters by scaling each hyperparameter to a given range.
 }
 \keyword{internal}
-

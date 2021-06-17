@@ -3,9 +3,7 @@
 \docType{package}
 \name{rBayesianOptimization}
 \alias{rBayesianOptimization}
-\alias{rBayesianOptimization-package}
 \title{rBayesianOptimization: Bayesian Optimization of Hyperparameters}
 \description{
 A Pure R implementation of bayesian global optimization with gaussian processes.
 }
-

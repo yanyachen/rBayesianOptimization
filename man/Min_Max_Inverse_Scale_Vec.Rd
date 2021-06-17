@@ -20,4 +20,3 @@ a vector of original hyperparameters
 Transforms scaled hyperparameters to original range.
 }
 \keyword{internal}
-

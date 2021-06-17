@@ -26,4 +26,3 @@ The arg max of the acquisition function
 Utility Maximization.
 }
 \keyword{internal}
-

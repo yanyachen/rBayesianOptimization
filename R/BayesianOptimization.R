@@ -74,7 +74,7 @@
 #'        Pred = cv$pred)
 #' }
 #' OPT_Res <- BayesianOptimization(xgb_cv_bayes,
-#'                                 bounds = list(max.depth = c(2L, 6L),
+#'                                 bounds = list(max_depth = c(2L, 6L),
 #'                                               min_child_weight = c(1L, 10L),
 #'                                               subsample = c(0.5, 0.8)),
 #'                                 init_grid_dt = NULL, init_points = 10, n_iter = 20,
@@ -147,9 +147,9 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
     # Printing History
     if (verbose == TRUE) {
       paste(c("elapsed", names(DT_history)),
-            c(format(This_Time["elapsed"], trim = FALSE, digits = 0, nsmall = 2),
-              format(DT_history[i, "Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 0),
-              format(DT_history[i, -"Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 4)),
+            c(format(This_Time["elapsed"], trim = FALSE, digits = NULL, nsmall = 2),
+              format(DT_history[i, "Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 0),
+              format(DT_history[i, -"Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 4)),
             sep = " = ", collapse = "\t") %>%
         cat(., "\n")
     }
@@ -190,9 +190,9 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
     # Printing History
     if (verbose == TRUE) {
       paste(c("elapsed", names(DT_history)),
-            c(format(Next_Time["elapsed"], trim = FALSE, digits = 0, nsmall = 2),
-              format(DT_history[j, "Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 0),
-              format(DT_history[j, -"Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 4)), sep = " = ", collapse = "\t") %>%
+            c(format(Next_Time["elapsed"], trim = FALSE, digits = NULL, nsmall = 2),
+              format(DT_history[j, "Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 0),
+              format(DT_history[j, -"Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 4)), sep = " = ", collapse = "\t") %>%
         cat(., "\n")
     }
   }
@@ -208,8 +208,8 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
   # Printing Best
   cat("\n Best Parameters Found: \n")
   paste(names(DT_history),
-        c(format(DT_history[which.max(Value), "Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 0),
-          format(DT_history[which.max(Value), -"Round", with = FALSE], trim = FALSE, digits = 0, nsmall = 4)),
+        c(format(DT_history[which.max(Value), "Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 0),
+          format(DT_history[which.max(Value), -"Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 4)),
         sep = " = ", collapse = "\t") %>%
     cat(., "\n")
   # Return

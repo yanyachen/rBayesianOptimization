@@ -4,9 +4,19 @@
 \alias{BayesianOptimization}
 \title{Bayesian Optimization}
 \usage{
-BayesianOptimization(FUN, bounds, init_grid_dt = NULL, init_points = 0,
-  n_iter, acq = "ucb", kappa = 2.576, eps = 0, kernel = list(type =
-  "exponential", power = 2), verbose = TRUE, ...)
+BayesianOptimization(
+  FUN,
+  bounds,
+  init_grid_dt = NULL,
+  init_points = 0,
+  n_iter,
+  acq = "ucb",
+  kappa = 2.576,
+  eps = 0,
+  kernel = list(type = "exponential", power = 2),
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{FUN}{The function to be maximized. This Function should return a named list with 2 components.
@@ -95,7 +105,7 @@ xgb_cv_bayes <- function(max_depth, min_child_weight, subsample) {
        Pred = cv$pred)
 }
 OPT_Res <- BayesianOptimization(xgb_cv_bayes,
-                                bounds = list(max.depth = c(2L, 6L),
+                                bounds = list(max_depth = c(2L, 6L),
                                               min_child_weight = c(1L, 10L),
                                               subsample = c(0.5, 0.8)),
                                 init_grid_dt = NULL, init_points = 10, n_iter = 20,
