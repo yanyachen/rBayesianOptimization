@@ -4,14 +4,14 @@ Title: Bayesian Optimization of Hyperparameters
 Version: 1.2.0
 Authors@R: person("Yachen", "Yan", email = "yanyachen21@gmail.com", role = c("aut", "cre"))
 Description: A Pure R implementation of Bayesian Global Optimization with Gaussian Processes.
-URL: http://github.com/yanyachen/rBayesianOptimization
-BugReports: http://github.com/yanyachen/rBayesianOptimization/issues
+URL: https://github.com/yanyachen/rBayesianOptimization
+BugReports: https://github.com/yanyachen/rBayesianOptimization/issues
 Depends: R (>= 2.10)
 Imports: stats, utils, data.table (>= 1.9.6), magrittr, foreach, GPfit
 Suggests: xgboost
 License: GPL-2
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-06-17 02:32:29 UTC; deadshot
+Packaged: 2021-06-17 07:27:20 UTC; deadshot
 Author: Yachen Yan [aut, cre]
 Maintainer: Yachen Yan <yanyachen21@gmail.com>
