@@ -126,12 +126,10 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
   ## Pred_list
   Pred_list <- vector(mode = "list", length = nrow(DT_history))
   # Initialization
-  for (i in 1:(nrow(init_grid_dt) + nrow(init_points_dt))) {
-    if (is.infinite(DT_history[i, Value]) == TRUE) {
-      This_Par <- DT_history[i, DT_bounds[, Parameter], with = FALSE]
-    } else {
-      next
-    }
+  infinite_rows = DT_history[seq_len(nrow(init_grid_dt) + nrow(init_points_dt))
+                             ][is.infinite(Value), which = TRUE]
+  for (i in infinite_rows) {
+    This_Par <- DT_history[i, DT_bounds[, Parameter], with = FALSE]
     # Function Evaluation
     This_Log <- utils::capture.output({
       This_Time <- system.time({
