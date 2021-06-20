@@ -151,7 +151,7 @@ BayesianOptimization <- function(FUN, bounds, init_grid_dt = NULL, init_points =
               format(DT_history[i, "Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 0),
               format(DT_history[i, -"Round", with = FALSE], trim = FALSE, digits = NULL, nsmall = 4)),
             sep = " = ", collapse = "\t") %>%
-        cat(., "\n")
+        cat("\n", .)
     }
   }
   # Optimization
