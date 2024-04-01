@@ -7,11 +7,11 @@
 Min_Max_Inverse_Scale_Vec(vec, lower, upper)
 }
 \arguments{
+\item{vec}{a vector of scaled hyperparameters}
+
 \item{lower}{lower bounds}
 
 \item{upper}{upper bounds}
-
-\item{mat}{a vector of scaled hyperparameters}
 }
 \value{
 a vector of original hyperparameters

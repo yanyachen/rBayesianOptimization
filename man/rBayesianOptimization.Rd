@@ -2,8 +2,21 @@
 % Please edit documentation in R/rBayesianOptimization.R
 \docType{package}
 \name{rBayesianOptimization}
+\alias{rBayesianOptimization-package}
 \alias{rBayesianOptimization}
 \title{rBayesianOptimization: Bayesian Optimization of Hyperparameters}
 \description{
 A Pure R implementation of bayesian global optimization with gaussian processes.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/yanyachen/rBayesianOptimization}
+  \item Report bugs at \url{https://github.com/yanyachen/rBayesianOptimization/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Yachen Yan \email{yanyachen21@gmail.com}
+
 }

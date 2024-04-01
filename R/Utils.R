@@ -50,7 +50,7 @@ utils::globalVariables(".")
 #' @description
 #' Transforms scaled hyperparameters to original range.
 #'
-#' @param mat a vector of scaled hyperparameters
+#' @param vec a vector of scaled hyperparameters
 #' @param lower lower bounds
 #' @param upper upper bounds
 #' @return a vector of original hyperparameters
